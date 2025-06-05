@@ -803,6 +803,16 @@ public final class MapboxMap: StyleManager {
     /// This API isn't supported by Globe projection.
     ///
     /// - Parameter coordinate: The coordinate to convert.
+    /// - Returns: A `CGPoint` relative to the `UIView`.
+    public func pointUnclamped(for coordinate: CLLocationCoordinate2D) -> CGPoint {
+        return __map.pixelForCoordinate(for: coordinate).point
+    }
+
+    /// Converts a map coordinate to a `CGPoint`, relative to the `MapView`.
+    ///
+    /// This API isn't supported by Globe projection.
+    ///
+    /// - Parameter coordinate: The coordinate to convert.
     /// - Returns: A `CGPoint` relative to the `UIView`. If the point is outside of the bounds
     ///     of `MapView` the returned point contains `-1.0` for both coordinates.
     public func point(for coordinate: CLLocationCoordinate2D) -> CGPoint {
