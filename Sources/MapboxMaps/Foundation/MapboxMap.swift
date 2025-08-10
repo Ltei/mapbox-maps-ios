@@ -46,6 +46,7 @@ protocol MapboxMapProtocol: AnyObject {
                 offset: CGPoint?) throws -> CameraOptions
     func coordinate(for point: CGPoint) -> CLLocationCoordinate2D
     func point(for coordinate: CLLocationCoordinate2D) -> CGPoint
+    func pointUnclamped(for coordinate: CLLocationCoordinate2D) -> CGPoint
 
     var onMapLoaded: Signal<MapLoaded> { get }
     var onMapLoadingError: Signal<MapLoadingError> { get }
@@ -808,6 +809,10 @@ public final class MapboxMap: StyleManager {
     ///     of `MapView` the returned point contains `-1.0` for both coordinates.
     public func point(for coordinate: CLLocationCoordinate2D) -> CGPoint {
         return __map.pixelForCoordinate(for: coordinate).point.fit(to: size)
+    }
+
+    public func pointUnclamped(for coordinate: CLLocationCoordinate2D) -> CGPoint {
+        return __map.pixelForCoordinate(for: coordinate).point
     }
 
     /// Converts map coordinates to an array of `CGPoint`, relative to the `MapView`.
